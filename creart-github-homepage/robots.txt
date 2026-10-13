@@ -1,3 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://www.creart-jy.com/sitemap.xml
