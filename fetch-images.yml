@@ -1,0 +1,51 @@
+name: 본사 프로그램 이미지 가져오기
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 이미지 다운로드 (creart.co.kr → images/program)
+        run: |
+          mkdir -p images/program
+          BASE="https://www.creart.co.kr/img"
+          FILES=""
+          # 메인 프로그램: 밤비니·클라인·킨더 (대표 1장 + 작품 6장씩)
+          for g in bambini klein kinder; do
+            for i in 00 01 02 03 04 05 06; do FILES="$FILES img_${g}_${i}.jpg"; done
+          done
+          # 서브 프로그램: 베베·주니어·스킬업
+          FILES="$FILES img_bebe_00.jpg img_junior_00.jpg img_skillup_00.jpg"
+          # AI 학습 프로그램 (화가의 손으로)
+          for i in $(seq -w 1 20); do FILES="$FILES aiprgr_${i}.jpg"; done
+
+          FAIL=0
+          for f in $FILES; do
+            if ! curl -fsSL -A "Mozilla/5.0" -e "https://www.creart.co.kr/" \
+                 -o "images/program/$f" "$BASE/$f"; then
+              echo "다운로드 실패: $f"; FAIL=$((FAIL+1)); rm -f "images/program/$f"
+            fi
+          done
+          echo "받은 파일 수: $(ls images/program | wc -l), 실패: $FAIL"
+
+      - name: HTML 안의 본사 이미지 주소를 내 사이트 주소로 바꾸기
+        run: |
+          find . -name "*.html" -not -path "./.git/*" -exec sed -i \
+            -e 's#https\?://www\.creart\.co\.kr/img/\(img_\|aiprgr_\)#/images/program/\1#g' \
+            -e 's#\(src=["'"'"']\)/img/\(img_\|aiprgr_\)#\1/images/program/\2#g' {} +
+
+      - name: 커밋
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet && echo "바뀐 내용 없음" && exit 0
+          git commit -m "본사 프로그램 이미지 추가"
+          git push
