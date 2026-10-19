@@ -1,24 +1,11 @@
-# 크리아트 일산주엽원 GitHub Pages 홈페이지
+# 크리아트 일산주엽원 상세 위치도 추가
 
-이 폴더를 GitHub 저장소 `weloveyoonha-dot/creart-jy-homepage`의 루트에 업로드하면 됩니다.
+이 패키지는 **기존 네이버 지도 링크를 유지**하고 상세 위치도 이미지만 추가하기 위한 파일입니다.
 
-## 포함 파일
-- `index.html` : 메인 홈페이지
-- `style.css` : 반응형 디자인
-- `script.js` : 모바일 메뉴와 연도 표시
-- `robots.txt` : 검색엔진 크롤링 설정
-- `sitemap.xml` : 사이트맵
-- `assets/creart-logo.png` : 제공받은 크리아트 메인 로고
+1. `assets/creart-detail-map.png`를 GitHub 저장소의 `assets/`에 업로드합니다.
+2. `index.html`에서 기존 '오시는 길' 또는 네이버 지도 링크 영역을 찾습니다.
+3. `location-snippet.html`의 `div.creart-location-guide` 블록을 **기존 네이버 지도 링크 바로 앞**에 추가합니다.
+4. `location-style.css`의 내용을 기존 `style.css` 맨 아래에 추가합니다.
+5. 커밋 후 www.creart-jy.com에서 이미지와 네이버 지도 버튼을 모두 확인합니다.
 
-## GitHub Pages 배포
-1. 저장소에 파일 전체 업로드
-2. Settings → Pages
-3. Source: Deploy from a branch
-4. Branch: main / (root)
-5. Save
-
-## 주의
-- 현재 운영 시간은 사용자 제공 정보에 정확한 시간이 없어 `상담 시 안내`로 표시했습니다.
-- 지번의 번지수와 `주엽초등학교에서 도보 ○분`은 확정값이 없어 홈페이지에서는 각각 `강선마을 14단지 분산상가`, `주엽초등학교 인근`으로 표현했습니다.
-- 실제 시간이 확정되면 `index.html`의 운영 시간 영역만 수정하면 됩니다.
-- GitHub Pages 기본 주소에서 정상 표시를 확인한 뒤 `www.creart-jy.com` 커스텀 도메인을 연결하세요.
+주의: 현재 저장소의 실제 코드를 읽을 수 없어 정확한 삽입 위치나 파일 경로를 검증하지 못했습니다. 사이트가 하위 경로에 있거나 빌드 프레임워크를 사용한다면 이미지 경로를 조정해야 합니다. 기존 네이버 지도 URL은 수정하지 마세요.

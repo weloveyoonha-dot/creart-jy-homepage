@@ -1,0 +1,5 @@
+/* 기존 style.css 맨 아래에 추가 */
+.creart-location-guide { width: 100%; max-width: 920px; margin: 24px auto; }
+.creart-location-guide h3 { margin: 0 0 14px; font-size: clamp(18px, 2.5vw, 24px); }
+.creart-location-guide img { display: block; width: 100%; height: auto; border-radius: 16px; box-shadow: 0 6px 22px rgba(0,0,0,.09); }
+@media (max-width: 600px) { .creart-location-guide { margin: 18px auto; } .creart-location-guide img { border-radius: 10px; } }
